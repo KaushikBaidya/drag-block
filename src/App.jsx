@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
+const getRandomPosition = () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+});
+
 const Box = ({ index, createBox }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState(getRandomPosition);
   const [connectedBoxes, setConnectedBoxes] = useState([]);
 
   const handleBoxClick = () => {
@@ -31,22 +36,24 @@ const Box = ({ index, createBox }) => {
   };
 
   return (
-    <div
-      className="w-24 h-24 p-4 border bg-pink-400 text-white rounded-md"
-      style={{ position: "absolute", left: position.x, top: position.y }}
-      onMouseDown={handleMouseDown}
-    >
-      <p className="text-lg font-bold mb-2 text-center">{index}</p>
-      {connectedBoxes.map((connectedId) => (
-        <div key={connectedId} className="dashed-line" />
-      ))}
-      <button
-        onClick={handleBoxClick}
-        className="w-full bg-pink-200 text-pink-500 text-lg font-bold rounded"
+    <>
+      <div
+        className="w-24 h-24 p-4 border bg-pink-400 text-white rounded-md"
+        style={{ position: "absolute", left: position.x, top: position.y }}
+        onMouseDown={handleMouseDown}
       >
-        +
-      </button>
-    </div>
+        <p className="text-lg font-bold mb-2 text-center">{index}</p>
+        {connectedBoxes.map((connectedId) => (
+          <div key={connectedId} className="dashed-line" />
+        ))}
+        <button
+          onClick={handleBoxClick}
+          className="w-full bg-pink-200 text-pink-500 text-lg font-bold rounded"
+        >
+          +
+        </button>
+      </div>
+    </>
   );
 };
 
